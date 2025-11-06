@@ -1,73 +1,46 @@
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * 
+ * Holds data shared between threads for the subset-sum check:
+ * the input numbers, the target b, a winner mask, and a found flag.
  */
-public class SharedData 
-{
-	private ArrayList <Integer> array;
-	private boolean [] winArray;
-	private boolean flag;
-	private final int b;
-	
-	/** SharedData class holds the shared information used by multiple threads.
-	 * @param array
-	 * @param constarctor 
-	 */
-	public SharedData(ArrayList array, int b) {
-		this.array =array;
-		this.b = b;
-	}
+public class SharedData {
+    private ArrayList<Integer> array;
+    private boolean[] winArray;
+    private boolean flag;
+    private final int b;
 
-	/**  Boolean array representing which elements matched (true/false)
-	 * @return  winArray
-	 */ 
-	public boolean[] getWinArray() 
-	{
-		return winArray;
-	}
+    /**
+     * Creates a new SharedData container.
+     * @param array the input numbers to search over
+     * @param b     the target sum
+     */
+    public SharedData(ArrayList<Integer> array, int b) {
+        this.array = array;
+        this.b = b;
+    }
 
-	/** Sets the result boolean array after processing.
-	 * @param winArray the boolean array to set
-	 */
-	public void setWinArray(boolean [] winArray) 
-	{
-		this.winArray = winArray;
-	}
+    /** @return the boolean mask of chosen indices (true if chosen) */
+    public boolean[] getWinArray() { return winArray; }
 
-	/**Returns the list of integers being processed.
-	 * @return array the ArrayList of integers
-	 */
-	public ArrayList<Integer> getArray() 
-	{
-		return array;
-	}
+    /** @param winArray the boolean mask to set */
+    public void setWinArray(boolean[] winArray) { this.winArray = winArray; }
 
-	/** Returns the target number to search for.
-	 * @return  b the target number
-	 */
-	public int getB() 
-	{
-		return b;
-	}
+    /** @return the input numbers */
+    public ArrayList<Integer> getArray() { return array; }
 
-	/**Returns the current flag value.
-     * Indicates whether the target number was found or not.
-	 * @return  true if the target number was found, false otherwise
-	 */
-	public boolean getFlag() 
-	{
-		return flag;
-	}
+    /** @return the target sum */
+    public int getB() { return b; }
 
-	/**
-	 * Sets the flag value.
-     * Used by threads to update whether the target number was found.
-	 * @param flag
-	 */
-	public void setFlag(boolean flag) {
-		this.flag = flag;
-	}
+    /**
+     * @return true if a solution was found, false otherwise
+     */
+    public boolean getFlag() { return flag; }
 
+    /**
+     * Sets the "solution found" flag.
+     * @param flag true if found, false otherwise
+     */
+    public void setFlag(boolean flag) { 
+    	this.flag = flag; }
 }

@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/** Console runner: reads input, spawns two worker threads, prints the result. */
 public class TestThreadCheckArray {
-	/**
-	 * @param args
-	 * Entry point of the program: reads input, initializes shared data, starts two threads to check array combinations, and prints the result.
-	 */
+    /**
+     * Entry point: reads input, initializes shared data, runs two threads, prints output.
+     * @param args CLI args (unused)
+     */
 	public static void main(String[] args) {
 		try (Scanner input = new Scanner(System.in)) {
 			Thread thread1, thread2;

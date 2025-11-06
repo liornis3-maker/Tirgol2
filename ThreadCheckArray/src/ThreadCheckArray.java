@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+/** Worker runnable that searches for a subset summing to the target, thread-safe via SharedData. */
 public class ThreadCheckArray implements Runnable 
 {
 	private boolean flag;
@@ -9,9 +9,9 @@ public class ThreadCheckArray implements Runnable
 	int b;
 	
 	/**
-	 * Constructs a ThreadCheckArray object, initializes shared data safely, and creates a winArray matching the shared array size.
-	 * @param sd
-	 */
+     * Constructs the worker and snapshots shared fields safely.
+     * @param sd the shared data container
+     */
 	public ThreadCheckArray(SharedData sd) 
 	{
 		this.sd = sd;	
@@ -24,9 +24,10 @@ public class ThreadCheckArray implements Runnable
 	}
 	
 	/**
-	 * @param n
-	 * @param b
-	 */
+     * Recursively checks if a subset of the first n elements sums to b; stops early if another thread found a solution.
+     * @param n number of elements to consider (prefix length)
+     * @param b remaining target sum
+     */
 	void rec(int n, int b)
 	{
 		synchronized (sd) 
@@ -60,9 +61,7 @@ public class ThreadCheckArray implements Runnable
 		rec(n-1, b);
 	}
 
-	/**
-	 *Performs a recursive check on the shared array to find combinations that match a target sum, updating flags and winArray in a thread-safe manner
-	 */
+    /** Performs the search and writes results back to SharedData if found. */
 	public void run() {
 		if (array.size() != 1)
 			if (Thread.currentThread().getName().equals("thread1"))
