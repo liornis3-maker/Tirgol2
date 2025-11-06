@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TestThreadCheckArray {
+	/**
+	 * @param args
+	 * Entry point of the program: reads input, initializes shared data, starts two threads to check array combinations, and prints the result.
+	 */
 	public static void main(String[] args) {
 		try (Scanner input = new Scanner(System.in)) {
 			Thread thread1, thread2;
